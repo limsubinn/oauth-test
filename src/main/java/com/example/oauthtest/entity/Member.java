@@ -1,5 +1,7 @@
 package com.example.oauthtest.entity;
 
+import com.example.oauthtest.auth.model.OAuth2Provider;
+import com.example.oauthtest.auth.model.OAuth2UserInfo;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -22,6 +24,12 @@ public class Member extends BaseTime {
     private String nickname;
 
     @Column(nullable = false)
+    private String socialId;
+
+    @Enumerated(EnumType.STRING)
+    private OAuth2Provider provider;
+
+    @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)
@@ -29,16 +37,20 @@ public class Member extends BaseTime {
     private Timestamp connectedAt;
 
     @Builder
-    private Member(String nickname, String email, Timestamp connectedAt) {
+    private Member(String nickname, String socialId, OAuth2Provider provider, String email, Timestamp connectedAt) {
         this.nickname = nickname;
+        this.socialId = socialId;
+        this.provider = provider;
         this.email = email;
         this.connectedAt = connectedAt;
     }
 
-    public static Member of(String nickname, String email) {
+    public static Member of(OAuth2UserInfo info) {
         return builder()
-                .nickname(nickname)
-                .email(email)
+                .nickname(info.getNickname())
+                .socialId(info.getId())
+                .provider(info.getProvider())
+                .email(info.getEmail())
                 .connectedAt(new Timestamp(System.currentTimeMillis()))
                 .build();
     }
