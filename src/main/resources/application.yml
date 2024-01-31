@@ -21,3 +21,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+secret:
+  jwt-secret-key: ${JWT_SECRET_KEY}
+  jwt-expired-in: ${JWT_EXPIRED_IN}
