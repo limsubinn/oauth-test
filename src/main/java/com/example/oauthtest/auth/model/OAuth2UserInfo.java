@@ -8,6 +8,5 @@ public interface OAuth2UserInfo {
     String getId();
     String getEmail();
     String getAccessToken();
-    Map<String, Object> getAttributes();
 
 }

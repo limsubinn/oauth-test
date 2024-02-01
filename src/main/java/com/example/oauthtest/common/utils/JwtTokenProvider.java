@@ -1,11 +1,10 @@
-package com.example.oauthtest.auth.util;
+package com.example.oauthtest.common.utils;
 
 import com.example.oauthtest.auth.model.OAuth2Provider;
-import com.example.oauthtest.auth.model.OAuth2UserInfo;
-import com.example.oauthtest.auth.model.OAuth2UserInfoFactory;
 import com.example.oauthtest.auth.model.OAuth2UserPrincipal;
 import com.example.oauthtest.common.exception.CustomBadRequestException;
 import com.example.oauthtest.common.exception.CustomUnauthorizedException;
+import com.example.oauthtest.member.dto.SecurityMemberDto;
 import com.example.oauthtest.member.repository.MemberRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -14,13 +13,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.util.Base64;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 import static com.example.oauthtest.common.response.ExceptionResponseStatus.*;
 
@@ -50,53 +50,60 @@ public class JwtTokenProvider implements InitializingBean {
         key = Keys.hmacShaKeyFor(encodedKey.getBytes());
     }
 
-    public String generateToken(OAuth2UserPrincipal principal, Long memberId, Long accessTokenValidTime) {
+    public String generateToken(Authentication authentication, Long memberId, Long accessTokenValidTime) {
+        OAuth2UserPrincipal principal = getOAuth2UserPrincipal(authentication);
         OAuth2Provider provider = principal.getUserInfo().getProvider();
         String socialId = principal.getUserInfo().getId();
-        String email = principal.getUsername();
 
         Date now = new Date();
         Date expiration = new Date(now.getTime() + accessTokenValidTime);
 
         return Jwts.builder()
-                .setSubject(provider.ordinal() + socialId)
-                .claim("registrationId", provider.getRegistrationId())
-                .claim("accessToken", principal.getUserInfo().getAccessToken())
-                .claim("memberId", memberId)
-                .claim("email", email)
-                .claim("attributes", principal.getUserInfo().getAttributes())
+                .setSubject(memberId.toString())
+                .claim("provider", provider.name())
+                .claim("socialId", socialId)
                 .setIssuedAt(now)
                 .setExpiration(expiration)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public String generateAccessToken(OAuth2UserPrincipal principal, Long memberId) {
-        return generateToken(principal, memberId, accessTokenValidTime);
+    public String generateAccessToken(Authentication authentication, Long memberId) {
+        return generateToken(authentication, memberId, accessTokenValidTime);
     }
 
 //    public String generateRefreshToken(OAuth2UserPrincipal principal) {
 //        return generateToken(principal, refreshTokenValidTime);
 //    }
 
-    public OAuth2UserPrincipal getOAuthPrincipal(String token) {
-        // token 으로부터 Claim 가져오기
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+    private Claims getClaims(String token) {
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (SecurityException e) {
+            throw new CustomUnauthorizedException(INVALID_TOKEN);
+        } catch (MalformedJwtException e) {
+            throw new CustomUnauthorizedException(INVALID_TOKEN);
+        } catch (ExpiredJwtException e) {
+            throw new CustomUnauthorizedException(EXPIRED_TOKEN);
+        } catch (UnsupportedJwtException e) {
+            throw new CustomUnauthorizedException(UNSUPPORTED_TOKEN_TYPE);
+        } catch (IllegalArgumentException e) {
+            throw new CustomBadRequestException(JWT_ERROR);
+        }
+    }
 
-        OAuth2UserInfo userInfo = OAuth2UserInfoFactory.getOAuth2UserInfo((String) claims.get("registrationId"), (Map<String, Object>) claims.get("attributes"), (String) claims.get("accessToken"));
-        return OAuth2UserPrincipal.of(userInfo);
+    public Authentication getAuthentication(SecurityMemberDto memberDto) {
+        return new UsernamePasswordAuthenticationToken(memberDto, "",
+                Collections.emptyList());
     }
 
     public boolean isExpiredToken(String token) {
         try {
-            Jws<Claims> claims = Jwts.parserBuilder()
-                    .setSigningKey(key).build()
-                    .parseClaimsJws(token);
-            return claims.getBody().getExpiration().before(new Date());
+            return getClaims(token).getExpiration().before(new Date());
         } catch (ExpiredJwtException e) {
             return true;
         } catch (UnsupportedJwtException e) {
@@ -125,41 +132,17 @@ public class JwtTokenProvider implements InitializingBean {
         }
     }
 
-    public String getSubject(String token) {
-        return Jwts.parserBuilder()
+    public Long getMemberId(String token) {
+        String subject = Jwts.parserBuilder()
                 .setSigningKey(key).build()
                 .parseClaimsJws(token)
                 .getBody().getSubject();
+        return Long.parseLong(subject);
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
         this.key = Keys.hmacShaKeyFor(JWT_SECRET_KEY.getBytes(StandardCharsets.UTF_8));
-    }
-
-    public Long getMemberId(String token) {
-        Claims claims = getClaims(token);
-        return Long.parseLong(claims.get("memberId", String.class));
-    }
-
-    private Claims getClaims(String token) {
-        try {
-            return Jwts.parserBuilder()
-                    .setSigningKey(key)
-                    .build()
-                    .parseClaimsJws(token)
-                    .getBody();
-        } catch (SecurityException e) {
-            throw new CustomUnauthorizedException(INVALID_TOKEN);
-        } catch (MalformedJwtException e) {
-            throw new CustomUnauthorizedException(INVALID_TOKEN);
-        } catch (ExpiredJwtException e) {
-            throw new CustomUnauthorizedException(EXPIRED_TOKEN);
-        } catch (UnsupportedJwtException e) {
-            throw new CustomUnauthorizedException(UNSUPPORTED_TOKEN_TYPE);
-        } catch (IllegalArgumentException e) {
-            throw new CustomBadRequestException(JWT_ERROR);
-        }
     }
 
     public Long getMemberIdFromExpiredToken(String token) {
@@ -171,6 +154,15 @@ public class JwtTokenProvider implements InitializingBean {
             Claims expiredClaims = e.getClaims();
             return Long.parseLong(expiredClaims.get("memberId", String.class));
         }
+    }
+
+    private OAuth2UserPrincipal getOAuth2UserPrincipal(Authentication authentication) {
+        Object principal = authentication.getPrincipal();
+
+        if (principal instanceof OAuth2UserPrincipal) {
+            return (OAuth2UserPrincipal) principal;
+        }
+        return null;
     }
 
 }

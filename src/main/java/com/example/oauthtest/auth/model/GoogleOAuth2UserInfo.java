@@ -6,15 +6,14 @@ import java.util.Map;
 
 public class GoogleOAuth2UserInfo implements OAuth2UserInfo {
 
-    private OAuth2Provider provider = OAuth2Provider.GOOGLE;
+    private OAuth2Provider provider;
     private String id;
     private String email;
     private String accessToken;
-    private Map<String, Object> attributes;
 
     @Builder
-    private GoogleOAuth2UserInfo(Map<String, Object> attributes, String id, String email, String accessToken) {
-        this.attributes = attributes;
+    private GoogleOAuth2UserInfo(OAuth2Provider provider, String id, String email, String accessToken) {
+        this.provider = provider;
         this.id = id;
         this.email = email;
         this.accessToken = accessToken;
@@ -22,7 +21,7 @@ public class GoogleOAuth2UserInfo implements OAuth2UserInfo {
 
     public static GoogleOAuth2UserInfo of(Map<String, Object> attributes, String accessToken) {
         return builder()
-                .attributes(attributes)
+                .provider(OAuth2Provider.GOOGLE)
                 .id((String) attributes.get("sub"))
                 .email((String) attributes.get("email"))
                 .accessToken(accessToken)
@@ -47,11 +46,6 @@ public class GoogleOAuth2UserInfo implements OAuth2UserInfo {
     @Override
     public String getAccessToken() {
         return accessToken;
-    }
-
-    @Override
-    public Map<String, Object> getAttributes() {
-        return attributes;
     }
 
 }

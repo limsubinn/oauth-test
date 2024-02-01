@@ -34,10 +34,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         String registrationId = userRequest.getClientRegistration()
                 .getRegistrationId();
 
-        // 사용자 이름 속성
-        String userNameAttributeName = userRequest.getClientRegistration()
-                .getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
-
         // 액세스 토큰
         String accessToken = userRequest.getAccessToken().getTokenValue();
 
@@ -51,9 +47,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         if (!StringUtils.hasText(oAuth2UserInfo.getEmail())) {
             throw new CustomUnauthorizedException(EMAIL_NOT_FOUND);
         }
-
-        // DB에서 찾기 or 저장
-        memberService.findMemberBySocial(oAuth2UserInfo);
 
         return OAuth2UserPrincipal.of(oAuth2UserInfo);
     }

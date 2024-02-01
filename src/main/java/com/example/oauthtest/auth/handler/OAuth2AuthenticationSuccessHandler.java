@@ -26,23 +26,13 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
         // 로그인 응답 객체 생성
-        OAuth2UserPrincipal principal = getOAuth2UserPrincipal(authentication);
-        BaseSuccessResponse<?> result = BaseSuccessResponse.of("소셜 로그인에 성공하였습니다.", memberService.login(principal));
+        BaseSuccessResponse<?> result = BaseSuccessResponse.of("소셜 로그인에 성공하였습니다.", memberService.login(authentication));
 
         // response
         response.setContentType(MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
         Gson gson = new Gson();
         String jsonStr = gson.toJson(result);
         response.getWriter().println(jsonStr);
-    }
-
-    private OAuth2UserPrincipal getOAuth2UserPrincipal(Authentication authentication) {
-        Object principal = authentication.getPrincipal();
-
-        if (principal instanceof OAuth2UserPrincipal) {
-            return (OAuth2UserPrincipal) principal;
-        }
-        return null;
     }
 
 }

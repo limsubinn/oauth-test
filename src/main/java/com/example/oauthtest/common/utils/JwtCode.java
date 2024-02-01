@@ -1,4 +1,4 @@
-package com.example.oauthtest.auth.util;
+package com.example.oauthtest.common.utils;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
