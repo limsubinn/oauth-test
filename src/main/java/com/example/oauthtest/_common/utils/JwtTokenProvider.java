@@ -1,9 +1,9 @@
-package com.example.oauthtest.common.utils;
+package com.example.oauthtest._common.utils;
 
 import com.example.oauthtest.auth.model.OAuth2Provider;
 import com.example.oauthtest.auth.model.OAuth2UserPrincipal;
-import com.example.oauthtest.common.exception.CustomBadRequestException;
-import com.example.oauthtest.common.exception.CustomUnauthorizedException;
+import com.example.oauthtest._common.exception.CustomBadRequestException;
+import com.example.oauthtest._common.exception.CustomUnauthorizedException;
 import com.example.oauthtest.member.dto.SecurityMemberDto;
 import com.example.oauthtest.member.repository.MemberRepository;
 import io.jsonwebtoken.*;
@@ -21,7 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.*;
 
-import static com.example.oauthtest.common.response.ExceptionResponseStatus.*;
+import static com.example.oauthtest._common.response.ExceptionResponseStatus.*;
 
 
 @Slf4j

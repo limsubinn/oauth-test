@@ -1,6 +1,6 @@
 package com.example.oauthtest.auth.handler;
 
-import com.example.oauthtest.common.exception.CustomUnauthorizedException;
+import com.example.oauthtest._common.exception.CustomUnauthorizedException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +8,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
-import static com.example.oauthtest.common.response.ExceptionResponseStatus.SOCIAL_AUTHORIZATION_FAIL;
+import static com.example.oauthtest._common.response.ExceptionResponseStatus.SOCIAL_AUTHORIZATION_FAIL;
 
 @Component
 @Slf4j

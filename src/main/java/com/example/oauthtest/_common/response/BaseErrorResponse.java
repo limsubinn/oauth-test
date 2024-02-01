@@ -1,4 +1,4 @@
-package com.example.oauthtest.common.response;
+package com.example.oauthtest._common.response;
 
 import lombok.Builder;
 import lombok.Getter;

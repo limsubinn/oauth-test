@@ -1,6 +1,6 @@
-package com.example.oauthtest.common.exception;
+package com.example.oauthtest._common.exception;
 
-import com.example.oauthtest.common.response.BaseErrorResponse;
+import com.example.oauthtest._common.response.BaseErrorResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.BadRequestException;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import static com.example.oauthtest.common.response.ExceptionResponseStatus.*;
+import static com.example.oauthtest._common.response.ExceptionResponseStatus.*;
 
 @Slf4j
 @RestControllerAdvice

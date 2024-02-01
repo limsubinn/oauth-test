@@ -1,6 +1,6 @@
-package com.example.oauthtest.common.exception;
+package com.example.oauthtest._common.exception;
 
-import com.example.oauthtest.common.response.ExceptionResponseStatus;
+import com.example.oauthtest._common.response.ExceptionResponseStatus;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

@@ -19,9 +19,9 @@ public class SecurityMemberDto {
         this.email = email;
     }
 
-    public SecurityMemberDto of(Member member) {
+    public static SecurityMemberDto of(Member member) {
         return builder()
-                .provider(provider)
+                .provider(member.getProvider())
                 .id(member.getSocialId())
                 .email(member.getEmail())
                 .build();

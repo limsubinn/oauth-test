@@ -2,7 +2,7 @@ package com.example.oauthtest.auth.service;
 
 import com.example.oauthtest.auth.model.OAuth2UserInfoFactory;
 import com.example.oauthtest.auth.model.OAuth2UserPrincipal;
-import com.example.oauthtest.common.exception.CustomUnauthorizedException;
+import com.example.oauthtest._common.exception.CustomUnauthorizedException;
 import com.example.oauthtest.auth.model.OAuth2UserInfo;
 import com.example.oauthtest.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import static com.example.oauthtest.common.response.ExceptionResponseStatus.EMAIL_NOT_FOUND;
+import static com.example.oauthtest._common.response.ExceptionResponseStatus.EMAIL_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor

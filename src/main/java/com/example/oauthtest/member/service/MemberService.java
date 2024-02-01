@@ -1,8 +1,9 @@
 package com.example.oauthtest.member.service;
 
+import com.example.oauthtest._common.exception.CustomBadRequestException;
 import com.example.oauthtest.auth.model.OAuth2UserInfo;
 import com.example.oauthtest.auth.model.OAuth2UserPrincipal;
-import com.example.oauthtest.common.utils.JwtTokenProvider;
+import com.example.oauthtest._common.utils.JwtTokenProvider;
 import com.example.oauthtest.member.dto.LoginResponse;
 import com.example.oauthtest.member.entity.Member;
 import com.example.oauthtest.member.repository.MemberRepository;
@@ -39,6 +40,15 @@ public class MemberService {
         // 회원 정보가 있으면 해당 회원 리턴
         // 없으면 새로 생성해서 리턴
         return findMember.orElseGet(() -> memberRepository.save(Member.of(info)));
+    }
+
+    public Member validateMemberByToken(Long memberId) {
+        return findMemberById(memberId)
+                .orElseThrow(() -> new IllegalArgumentException());
+    }
+
+    private Optional<Member> findMemberById(Long memberId) {
+        return memberRepository.findById(memberId);
     }
 
     private OAuth2UserPrincipal getOAuth2UserPrincipal(Authentication authentication) {

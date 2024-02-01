@@ -1,10 +1,10 @@
 package com.example.oauthtest.auth.model;
 
-import com.example.oauthtest.common.exception.CustomBadRequestException;
+import com.example.oauthtest._common.exception.CustomBadRequestException;
 
 import java.util.Map;
 
-import static com.example.oauthtest.common.response.ExceptionResponseStatus.PROVIDER_NOT_SUPPORTED;
+import static com.example.oauthtest._common.response.ExceptionResponseStatus.PROVIDER_NOT_SUPPORTED;
 
 public class OAuth2UserInfoFactory {
 
