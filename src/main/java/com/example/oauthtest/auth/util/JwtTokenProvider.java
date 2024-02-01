@@ -6,7 +6,7 @@ import com.example.oauthtest.auth.model.OAuth2UserInfoFactory;
 import com.example.oauthtest.auth.model.OAuth2UserPrincipal;
 import com.example.oauthtest.common.exception.CustomBadRequestException;
 import com.example.oauthtest.common.exception.CustomUnauthorizedException;
-import com.example.oauthtest.repository.MemberRepository;
+import com.example.oauthtest.member.repository.MemberRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
@@ -21,7 +21,6 @@ import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static com.example.oauthtest.common.response.ExceptionResponseStatus.*;
 

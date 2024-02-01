@@ -1,15 +1,12 @@
-package com.example.oauthtest.service;
+package com.example.oauthtest.member.service;
 
 import com.example.oauthtest.auth.model.OAuth2UserInfo;
 import com.example.oauthtest.auth.model.OAuth2UserPrincipal;
 import com.example.oauthtest.auth.util.JwtTokenProvider;
-import com.example.oauthtest.common.response.BaseSuccessResponse;
-import com.example.oauthtest.dto.LoginResponse;
-import com.example.oauthtest.entity.Member;
-import com.example.oauthtest.auth.model.OAuth2Provider;
-import com.example.oauthtest.repository.MemberRepository;
+import com.example.oauthtest.member.dto.LoginResponse;
+import com.example.oauthtest.member.entity.Member;
+import com.example.oauthtest.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

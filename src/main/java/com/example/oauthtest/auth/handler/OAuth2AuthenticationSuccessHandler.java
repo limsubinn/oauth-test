@@ -1,27 +1,19 @@
 package com.example.oauthtest.auth.handler;
 
-import com.example.oauthtest.auth.model.OAuth2Provider;
 import com.example.oauthtest.auth.model.OAuth2UserPrincipal;
-import com.example.oauthtest.auth.util.JwtTokenProvider;
 import com.example.oauthtest.common.response.BaseSuccessResponse;
-import com.example.oauthtest.dto.LoginResponse;
-import com.example.oauthtest.entity.Member;
-import com.example.oauthtest.service.MemberService;
+import com.example.oauthtest.member.service.MemberService;
 import com.nimbusds.jose.shaded.gson.Gson;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
-import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor

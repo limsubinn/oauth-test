@@ -1,4 +1,4 @@
-package com.example.oauthtest.entity;
+package com.example.oauthtest.member.entity;
 
 import com.example.oauthtest.auth.model.OAuth2Provider;
 import com.example.oauthtest.auth.model.OAuth2UserInfo;

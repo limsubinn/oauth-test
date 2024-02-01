@@ -1,4 +1,4 @@
-package com.example.oauthtest.entity;
+package com.example.oauthtest.member.entity;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

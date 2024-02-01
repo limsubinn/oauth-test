@@ -1,4 +1,4 @@
-package com.example.oauthtest.dto;
+package com.example.oauthtest.member.dto;
 
 import lombok.Builder;
 import lombok.Getter;
