@@ -3,7 +3,6 @@ package com.example.oauthtest.auth.model;
 import lombok.Builder;
 
 import java.util.Map;
-import java.util.UUID;
 
 public class KakaoOAuth2UserInfo implements OAuth2UserInfo {
 
@@ -38,6 +37,11 @@ public class KakaoOAuth2UserInfo implements OAuth2UserInfo {
     }
 
     @Override
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    @Override
     public String getId() {
         return id;
     }
@@ -45,11 +49,6 @@ public class KakaoOAuth2UserInfo implements OAuth2UserInfo {
     @Override
     public String getEmail() {
         return email;
-    }
-
-    @Override
-    public String getAccessToken() {
-        return accessToken;
     }
 
 }

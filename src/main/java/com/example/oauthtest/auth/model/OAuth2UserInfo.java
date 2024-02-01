@@ -1,7 +1,5 @@
 package com.example.oauthtest.auth.model;
 
-import java.util.Map;
-
 public interface OAuth2UserInfo {
 
     OAuth2Provider getProvider();

@@ -9,8 +9,8 @@ import static com.example.oauthtest.common.response.ExceptionResponseStatus.PROV
 public class OAuth2UserInfoFactory {
 
     public static OAuth2UserInfo getOAuth2UserInfo(String registrationId,
-                                                   Map<String, Object> attributes,
-                                                   String accessToken) {
+                                                   String accessToken,
+                                                   Map<String, Object> attributes) {
         if (OAuth2Provider.GOOGLE.getRegistrationId().equals(registrationId)) {
             return GoogleOAuth2UserInfo.of(attributes, accessToken);
         }

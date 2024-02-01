@@ -1,6 +1,5 @@
 package com.example.oauthtest.auth.handler;
 
-import com.example.oauthtest.auth.model.OAuth2UserPrincipal;
 import com.example.oauthtest.common.response.BaseSuccessResponse;
 import com.example.oauthtest.member.service.MemberService;
 import com.nimbusds.jose.shaded.gson.Gson;

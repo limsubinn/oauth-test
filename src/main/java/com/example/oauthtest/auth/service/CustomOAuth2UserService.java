@@ -40,8 +40,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         // 유저 정보
         OAuth2UserInfo oAuth2UserInfo =
                 OAuth2UserInfoFactory.getOAuth2UserInfo(registrationId,
-                        oAuth2User.getAttributes(),
-                        accessToken);
+                accessToken,
+                oAuth2User.getAttributes());
 
         // 이메일 오류
         if (!StringUtils.hasText(oAuth2UserInfo.getEmail())) {
