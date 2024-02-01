@@ -1,6 +1,6 @@
 package com.example.oauthtest.repository;
 
-import com.example.oauthtest.entity.Member;
+import com.example.oauthtest.member.entity.Member;
 import com.example.oauthtest.auth.model.OAuth2Provider;
 import org.springframework.data.jpa.repository.JpaRepository;
 

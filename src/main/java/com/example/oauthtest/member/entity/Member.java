@@ -47,7 +47,7 @@ public class Member extends BaseTime {
 
     public static Member of(OAuth2UserInfo info) {
         return builder()
-                .nickname(info.getNickname())
+                .nickname(info.getProvider().getRegistrationId() + info.getId())
                 .socialId(info.getId())
                 .provider(info.getProvider())
                 .email(info.getEmail())
