@@ -1,8 +1,7 @@
 package com.example.oauthtest.member.service;
 
-import com.example.oauthtest._common.exception.CustomBadRequestException;
-import com.example.oauthtest.auth.model.OAuth2UserInfo;
-import com.example.oauthtest.auth.model.OAuth2UserPrincipal;
+import com.example.oauthtest.oauth.model.OAuth2UserInfo;
+import com.example.oauthtest.oauth.model.OAuth2UserPrincipal;
 import com.example.oauthtest._common.utils.JwtTokenProvider;
 import com.example.oauthtest.member.dto.LoginResponse;
 import com.example.oauthtest.member.entity.Member;

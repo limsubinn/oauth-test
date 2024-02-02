@@ -1,7 +1,7 @@
 package com.example.oauthtest.member.entity;
 
-import com.example.oauthtest.auth.model.OAuth2Provider;
-import com.example.oauthtest.auth.model.OAuth2UserInfo;
+import com.example.oauthtest.oauth.model.OAuth2Provider;
+import com.example.oauthtest.oauth.model.OAuth2UserInfo;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

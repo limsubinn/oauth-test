@@ -1,4 +1,4 @@
-package com.example.oauthtest.auth.handler;
+package com.example.oauthtest.oauth.handler;
 
 import com.example.oauthtest._common.response.BaseSuccessResponse;
 import com.example.oauthtest.member.service.MemberService;

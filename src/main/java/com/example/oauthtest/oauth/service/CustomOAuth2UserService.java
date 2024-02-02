@@ -1,11 +1,10 @@
-package com.example.oauthtest.auth.service;
+package com.example.oauthtest.oauth.service;
 
-import com.example.oauthtest.auth.model.OAuth2UserInfoFactory;
-import com.example.oauthtest.auth.model.OAuth2UserPrincipal;
+import com.example.oauthtest.oauth.model.OAuth2UserInfoFactory;
+import com.example.oauthtest.oauth.model.OAuth2UserPrincipal;
 import com.example.oauthtest._common.exception.CustomUnauthorizedException;
-import com.example.oauthtest.auth.model.OAuth2UserInfo;
-import com.example.oauthtest.member.service.MemberService;
-import lombok.RequiredArgsConstructor;
+import com.example.oauthtest.oauth.model.OAuth2UserInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -16,14 +15,14 @@ import org.springframework.util.StringUtils;
 
 import static com.example.oauthtest._common.response.ExceptionResponseStatus.EMAIL_NOT_FOUND;
 
+@Slf4j
 @Service
-@RequiredArgsConstructor
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
-
-    private final MemberService memberService;
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+        log.info("CustomOAuth2UserService.loadUser");
+
         // 기본 OAuth2UserService 객체 생성
         OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService = new DefaultOAuth2UserService();
 
@@ -36,6 +35,9 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         // 액세스 토큰
         String accessToken = userRequest.getAccessToken().getTokenValue();
+
+        log.info("registrationId {}", registrationId);
+        log.info("accessToken {}", accessToken);
 
         // 유저 정보
         OAuth2UserInfo oAuth2UserInfo =

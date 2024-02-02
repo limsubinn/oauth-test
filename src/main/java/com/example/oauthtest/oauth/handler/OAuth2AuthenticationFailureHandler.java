@@ -1,4 +1,4 @@
-package com.example.oauthtest.auth.handler;
+package com.example.oauthtest.oauth.handler;
 
 import com.example.oauthtest._common.exception.CustomUnauthorizedException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,6 +16,7 @@ public class OAuth2AuthenticationFailureHandler implements AuthenticationFailure
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) {
         // 인증 실패
+        log.error("fail {}", exception.getMessage());
         throw new CustomUnauthorizedException(SOCIAL_AUTHORIZATION_FAIL);
     }
 

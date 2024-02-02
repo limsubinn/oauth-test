@@ -1,4 +1,4 @@
-package com.example.oauthtest.auth.model;
+package com.example.oauthtest.oauth.model;
 
 import lombok.Builder;
 

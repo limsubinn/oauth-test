@@ -2,9 +2,9 @@ package com.example.oauthtest._common.config;
 
 import com.example.oauthtest._common.filter.JwtAuthorizationFilter;
 import com.example.oauthtest._common.filter.JwtExceptionFilter;
-import com.example.oauthtest.auth.handler.OAuth2AuthenticationFailureHandler;
-import com.example.oauthtest.auth.handler.OAuth2AuthenticationSuccessHandler;
-import com.example.oauthtest.auth.service.CustomOAuth2UserService;
+import com.example.oauthtest.oauth.handler.OAuth2AuthenticationFailureHandler;
+import com.example.oauthtest.oauth.handler.OAuth2AuthenticationSuccessHandler;
+import com.example.oauthtest.oauth.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;

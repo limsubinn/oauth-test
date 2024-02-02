@@ -1,4 +1,4 @@
-package com.example.oauthtest.auth.model;
+package com.example.oauthtest.oauth.model;
 
 import lombok.Builder;
 
@@ -10,7 +10,6 @@ public class KakaoOAuth2UserInfo implements OAuth2UserInfo {
     private String id;
     private String email;
     private String accessToken;
-    private Map<String, Object> attributes;
 
     @Builder
     private KakaoOAuth2UserInfo(OAuth2Provider provider, String id, String email, String accessToken) {

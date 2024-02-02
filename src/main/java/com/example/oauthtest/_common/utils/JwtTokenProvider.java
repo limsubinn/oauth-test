@@ -1,7 +1,7 @@
 package com.example.oauthtest._common.utils;
 
-import com.example.oauthtest.auth.model.OAuth2Provider;
-import com.example.oauthtest.auth.model.OAuth2UserPrincipal;
+import com.example.oauthtest.oauth.model.OAuth2Provider;
+import com.example.oauthtest.oauth.model.OAuth2UserPrincipal;
 import com.example.oauthtest._common.exception.CustomBadRequestException;
 import com.example.oauthtest._common.exception.CustomUnauthorizedException;
 import com.example.oauthtest.member.dto.SecurityMemberDto;
