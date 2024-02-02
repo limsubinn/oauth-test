@@ -1,27 +1,58 @@
-server:
-  port: 8080
-
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/oauth_test?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8
-    username: ssafy
-    password: ssafy
-    dbcp2:
-      validation-query: select 1
-  sql:
-    init:
-      platform: mysql
-      mode: always
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: ${DATASOURCE_URL}?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+  #    hikari:
+  #      connection-timeout: 3000
+  #      validation-timeout: 3000
+  #      minimum-idle: 2
+  #      max-lifetime: 240000
+  #      maximum-pool-size: 2
   jpa:
-    database: mysql
-    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
+    database-platform: org.hibernate.dialect.MariaDBDialect
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_SECRET}
+            scope: email
+            redirect-uri: ${GOOGLE_REDIRECTION_URI}
+          kakao:
+            client-id: ${KAKAO_CLIENT_ID} # 발급 받은 Client ID
+            client-secret: ${KAKAO_SECRET} # 발급 받은 Client Secret
+            client-authentication-method: client_secret_post
+            authorization-grant-type: authorization_code
+            scope: account_email
+            redirect-uri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-info-authentication-method: header
+            user-name-attribute: id # Kakao 응답 값 id, connected_at, properties, kakao_account 중 id 지정
+
+logging:
+  level:
+    root: DEBUG
 
 secret:
   jwt-secret-key: ${JWT_SECRET_KEY}
   jwt-expired-in: ${JWT_EXPIRED_IN}
+
+redis:
+  host: ${REDIS_HOST}
+  port: 6379
+  password: ${REDIS_PASSWORD}
+
+google:
+  redirect-uri: ${GOOGLE_REDIRECTION_URI}
